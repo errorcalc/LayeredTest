@@ -271,14 +271,4 @@ object frmMain: TfrmMain
     TabOrder = 0
     OnClick = btnAdd100Click
   end
-  object Loop: TButton
-    Left = 624
-    Top = 39
-    Width = 75
-    Height = 25
-    Caption = 'Loop'
-    ElevationRequired = True
-    TabOrder = 1
-    OnClick = LoopClick
-  end
 end

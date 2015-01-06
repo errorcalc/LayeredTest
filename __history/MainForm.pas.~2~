@@ -19,9 +19,7 @@ type
   TfrmMain = class(TForm)
     Image: TImage;
     btnAdd100: TButton;
-    Loop: TButton;
     procedure btnAdd100Click(Sender: TObject);
-    procedure LoopClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,34 +49,31 @@ var
 begin
   inherited;
 
-  if Assigned(WinBitMap) then
-  begin
-    // убедимся в том что у нас Premultiplied битмап
-    WinBitMap.AlphaFormat := afPremultiplied;
+  // убеждаемся в том что у нас Premultiplied битмап
+  WinBitMap.AlphaFormat := afPremultiplied;
 
-    bf.BlendOp := AC_SRC_OVER;
-    bf.BlendFlags := 1;
-    bf.AlphaFormat := AC_SRC_ALPHA;
-    bf.SourceConstantAlpha := 255;
-    // получаем размеры BitMap
-    BitmapSize.cx := WinBitMap.Width;
-    BitmapSize.cy := WinBitMap.Height;
-    BitmapPos.X := 0;
-    BitmapPos.Y := 0;
-    // добавляем "слоистый" стиль окна
-    SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) or WS_EX_LAYERED);
-    UpdateLayeredWindow(
-      Handle,
-      0,
-      nil,
-      @BitmapSize,
-      WinBitMap.Canvas.Handle,
-      @BitmapPos,
-      0,
-      @bf,
-      ULW_ALPHA
-    );
-  end;
+  bf.BlendOp := AC_SRC_OVER;
+  bf.BlendFlags := 1;
+  bf.AlphaFormat := AC_SRC_ALPHA;
+  bf.SourceConstantAlpha := 255;
+  // получаем размеры BitMap
+  BitmapSize.cx := WinBitMap.Width;
+  BitmapSize.cy := WinBitMap.Height;
+  BitmapPos.X := 0;
+  BitmapPos.Y := 0;
+  // добавляем "слоистый" стиль окна
+  SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) or WS_EX_LAYERED);
+  UpdateLayeredWindow(
+    Handle,
+    0,
+    nil,
+    @BitmapSize,
+    WinBitMap.Canvas.Handle,
+    @BitmapPos,
+    0,
+    @bf,
+    ULW_ALPHA
+  );
 end;
 
 procedure TfrmMain.btnAdd100Click(Sender: TObject);
@@ -87,19 +82,6 @@ var
   Win8Control: TWin8Control;
 begin
   for i := 0 to 99 do
-  begin
-    Win8Control := TWin8Control.Create(Self, Image.Picture.Bitmap);
-    Win8Control.Parent := Self;
-    Win8Control.Top := Random(400);
-    Win8Control.Left := Random(400);
-  end;
-end;
-
-procedure TfrmMain.LoopClick(Sender: TObject);
-var
-  Win8Control: TWin8Control;
-begin
-  while True do
   begin
     Win8Control := TWin8Control.Create(Self, Image.Picture.Bitmap);
     Win8Control.Parent := Self;
